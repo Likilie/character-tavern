@@ -17,6 +17,12 @@
 	function NotAvailable() {
 		alert("This feature isn't up and running here yet. Check out chub.ai to use it.");
 	}
+
+	// VERCEL ANALYTICS
+	import { dev } from '$app/environment';
+	import { inject } from '@vercel/analytics';
+	
+	inject({ mode: dev ? 'development' : 'production' });
 </script>
 
 <AppShell>
