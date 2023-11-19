@@ -11,7 +11,7 @@ const defaultSearchFilter: SearchFilter = {
     nsfw_only: false,
     min_tokens: 50,
     page: 0,
-    sort: SearchSort.download_count,
+    sort: SearchSort.star_count,
 };
 
 export const SearchFilterStore = writable<SearchFilter>(defaultSearchFilter);

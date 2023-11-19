@@ -53,7 +53,7 @@
         <label class="label">
             <h2 class="part-title">Sort By</h2>
             <select class="select" bind:value={$SearchFilterStore.sort}>
-                <option value={SearchSort.download_count}> Most Popular (All Time) </option>
+                <option value={SearchSort.star_count}> Most Popular (All Time) </option>
                 <option value={SearchSort.trending_downloads}> Trending (7D) </option>
                 <option value={SearchSort.rating}> Most Rated </option>
                 <option value={SearchSort.rating_count}> Number of Ratings</option>

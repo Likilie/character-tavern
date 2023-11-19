@@ -43,6 +43,7 @@ export enum SearchSort {
     name = "name",
     n_tokens = "n_tokens",
     random = "random",
+    star_count = "star_count",
 }
 
 export interface Label {
