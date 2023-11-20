@@ -9,13 +9,14 @@
     function Search() {
         $SearchFilterStore.search = SearchInput;
         if ($page.url.pathname !== "/character/catalog") {
+            console.log("Navigating to /character/catalog")
             goto("/character/catalog");
         }
     }
 
 </script>
 
-<form class="input-group input-group-divider grid-cols-[1fr_auto]">
+<form class="input-group input-group-divider grid-cols-[1fr_auto]" on:submit|preventDefault={Search}>
     <input type="text" placeholder="Search by name, tags, description..." bind:value={SearchInput} />
     <button class="variant-filled-primary" on:click={Search}><i class="fa-solid fa-magnifying-glass"></i></button>
 </form>
