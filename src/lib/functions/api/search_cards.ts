@@ -4,7 +4,7 @@ const  API_BASE_URL: URL = new URL('https://api.chub.ai/api/characters/search');
 
 
 export async function search_cards(filter: SearchFilter | undefined, cache: CacheMode = CacheMode.Default): Promise<Root> {
-    try {
+    try {   
         API_BASE_URL.search = new URLSearchParams(generateSearchQuery(filter)).toString();
         const API_URL: string = API_BASE_URL.toString();
         console.log("Doing an API call to: " + API_URL);
@@ -14,6 +14,16 @@ export async function search_cards(filter: SearchFilter | undefined, cache: Cach
             console.error(error_message);
         }
         const data: Root = await res.json();
+        if (!data || data.nodes.length == 0) {
+            console.log("No cards found for search: " + API_URL);
+            if (filter?.page && filter.page > 0) {
+                // If we're on a page other than the first, then we've gone too far.
+                // Return the first page instead.
+                console.log("Returning first page of results instead.");
+                const firstPageFilter: SearchFilter = {...filter, page: 0};
+                return await search_cards(firstPageFilter, cache);
+            }
+        }
         return data;
     } catch (error: unknown) {
         console.error("Error in search_cards API call: ", error);
