@@ -27,6 +27,12 @@ function generateSearchQuery(filter: SearchFilter | undefined): URLSearchParams 
     }
     const params: URLSearchParams = new URLSearchParams();
     for (const [key, value] of Object.entries(filter)) {
+        if (!value || value === "") {
+            console.log("Skipping empty value for key: " + key);
+            continue;
+        } else {
+            console.log("Adding key: " + key + " with value: " + value);
+        }
         if (key === "page") {
             const newPage: number = value as number + 1;
             params.append(key, newPage.toString());
