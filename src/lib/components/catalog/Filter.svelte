@@ -38,11 +38,18 @@
             $SearchFilterStore.tags = $SearchFilterStore.tags.filter((tag) => tag !== Tag);
         }
     }
+
+    function RemoveExcludeTag(Tag: string): void {
+        if ($SearchFilterStore.exclude_tags) {
+            $SearchFilterStore.exclude_tags = $SearchFilterStore.exclude_tags.filter((tag) => tag !== Tag);
+        }
+    }
 				
 
     let tagOptions: AutocompleteOption<string>[] = [];
 
     let RequiredTags: string;
+    let ExcludeTags: string;
     let isRequiredTagInputFocused = false;
 					
 </script>
@@ -79,10 +86,12 @@
             {/if}
             {#if $SearchFilterStore.tags}<span class=" flex flex-wrap gap-2">{#each $SearchFilterStore.tags as Tag} <button class="chip variant-filled flex justify-center items-center gap-1" on:click={() => RemoveTag(Tag)}><span>{Tag} </span><i class="fa-solid fa-xmark"></i></button> {/each}</span>{/if}
         </label>
-        <label class="label" for="Allow_Tags">
-            <span>Excluded Tags (Case Sensitive)</span>
-            <InputChip name="Exclude_Tags" id="Exclude_Tags" bind:value={$SearchFilterStore.exclude_tags} allowUpperCase placeholder="Loli ↲ Fetish ↲" />
-        </label>
+        <form class="label" on:submit|preventDefault={() => {$SearchFilterStore.exclude_tags = [...$SearchFilterStore.exclude_tags ?? [], ExcludeTags]; ExcludeTags = ""}}>
+            <label class="label" for="EXCLUDE_TAGS">Excluded Tags (Case Sensitive)</label>
+            <input class="input" type="text" name="EXCLUDE_TAGS" id="EXCLUDE_TAGS" placeholder="Loli ↲ Fetish ↲" bind:value={ExcludeTags}>
+            {#if $SearchFilterStore.exclude_tags}<span class=" flex flex-wrap gap-2">{#each $SearchFilterStore.exclude_tags as Tag} <button class="chip variant-filled flex justify-center items-center gap-1" on:click={() => RemoveExcludeTag(Tag)}><span>{Tag} </span><i class="fa-solid fa-xmark"></i></button> {/each}</span>{/if}
+
+        </form>
         <label class="label">
             <span>Token Minimum</span>
             <input class="input" title="Minimal Tokens" type="number" placeholder="Min. tokens" bind:value={$SearchFilterStore.min_tokens} />
