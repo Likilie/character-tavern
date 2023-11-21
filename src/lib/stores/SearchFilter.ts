@@ -9,7 +9,6 @@ const defaultSearchFilter: SearchFilter = {
     asc: false,
     first: 48,
     nsfw_only: false,
-    min_tokens: 50,
     page: 0,
     sort: SearchSort.star_count,
 };
