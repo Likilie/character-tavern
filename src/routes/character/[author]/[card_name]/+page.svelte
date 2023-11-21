@@ -168,7 +168,7 @@
     <div class="container-section md:grid md:grid-cols-10 md:gap-4 ">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-        <img src={IMAGE_URL_HD} alt="Photo {CARD_NAME}" class="h-full rounded shadow-xl col-span-2 max-h-[50rem] cursor-pointer mb-4 md:mb-0" on:click={ScroolToDownload}>
+        <img src={IMAGE_URL_HD} alt="Photo {CARD_NAME}" class="h-full rounded shadow-xl col-span-3 max-h-[50rem] cursor-pointer mb-4 md:mb-0" on:click={ScroolToDownload}>
         <div class="flex justify-start items-start flex-col gap-4 h-full w-full md:col-span-7">
             <div class="flex flex-col flex-wrap">
                 <h1 class="flex gap-4 text-xl md:text-2xl text-primary-500 font-black">{CARD_NAME} <span class="chip {[CARD_NSFW === "NSFW" ? "variant-filled-primary" : "variant-filled"]} font-normal">{CARD_NSFW}</span></h1>
