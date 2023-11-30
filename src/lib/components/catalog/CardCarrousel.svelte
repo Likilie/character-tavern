@@ -2,7 +2,6 @@
     import STCardPreview from "$lib/components/catalog/STCardPreview.svelte";
     import { search_cards } from "$lib/functions/api/search_cards";
     import { CacheMode, type Card, type SearchSort } from "$lib/type";
-    import { onDestroy, onMount } from "svelte";
     import Loader from "../common/Loader.svelte";
     import { SearchFilterStore } from "$lib/stores/SearchFilter";
 
@@ -12,24 +11,9 @@
     export let search_filter: SearchSort;
     export let cache: CacheMode = CacheMode.Default;
 
-    let Unsubscribe: () => void;
+    $: $SearchFilterStore.nsfw, Refresh();
 
-    onMount(async () => {
-        Unsubscribe = SearchFilterStore.subscribe(async value => {
-            await Refresh();
-        });
-    });
-
-    onDestroy(() => {
-        if (Unsubscribe) {
-            console.log("Unsubscribing from SearchFilterStore in " + title);
-            Unsubscribe();
-        }
-    });
-
-    
-
-    export async function Refresh() : Promise<void> {
+    async function Refresh() : Promise<void> {
         console.log("Fetching the cards for " + title + "...");
         cards = [];
         cards = (await search_cards({sort : search_filter, nsfw: $SearchFilterStore.nsfw, first: 20, page: 1}, cache = cache)).nodes;
